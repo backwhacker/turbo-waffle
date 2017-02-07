@@ -41,6 +41,9 @@ class device_handler(debounce_handler):
     """Publishes the on/off state requested,
        and the IP address of the Echo making the request.
     """
+    def __init__(self, deviceName):
+        self.deviceName = deviceName
+
     TRIGGERS = {deviceName: 52000}
 
     def act(self, client_address, state):
@@ -63,9 +66,7 @@ if __name__ == "__main__":
     u.init_socket()
     p.add(u)
 
-    for d in devices:
-        d = k
-    d = device_handler()
+    d = device_handler(deviceName)
     for trig, port in d.TRIGGERS.items():
         fauxmo.fauxmo(trig, u, p, None, port, d)
 
